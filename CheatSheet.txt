@@ -1,0 +1,21 @@
+Concepte Cheie: Imagistică și Arhitectură
+Segmentare multi-label: Reprezintă procesul de identificare simultană a mai multor organe (în acest caz: ficatul, stomacul, vena și artera) în cadrul aceleiași imagini ecografice.
+
+ResNet50 (Encoder): Este o arhitectură de rețea neurală care extrage trăsăturile din imagine. A fost pre-antrenată inițial pe ImageNet și apoi adaptată pentru imagini alb-negru (grayscale, pe un singur canal).
+
+U-Net (Decoder): Partea rețelei care folosește blocurile de date pentru a reconstrui masca segmentării. Utilizează legături directe (skip connections) pentru a recupera detaliile spațiale vitale structurilor anatomice fine.
+
+Preprocesarea Datelor
+CLAHE (Contrast Limited Adaptive Histogram Equalization): O metodă de filtrare prin care se face egalizarea adaptivă a histogramei imaginii. Ajută enorm la evidențierea marginilor organelor în zonele unde ecografia are un contrast scăzut.
+
+Augmentare geometrică: Un set de transformări aplicate datelor (flip, rotații mici, scalare) pentru a simula mai multe ipostaze și a compensa astfel marea variabilitate a pozițiilor fetale.
+
+Antrenarea Modelului
+Funcția de Loss (BCE Ponderat + Focal Tversky): Este un calcul matematic combinat folosit pentru a ghida antrenamentul rețelei. Penalizează atât dezechilibrul numărului de pixeli dintre clase, cât și pixelii care sunt pur și simplu greu de clasificat.
+
+Pondere pozitivă (Pos_weight): O tehnică prin care se dă prioritate și o pondere mai mare organelor care au suprafața foarte mică în mască. De exemplu, pentru arteră modelul asignează ponderea 150.0, pe când ficatul are doar 15.0.
+
+Performanță și Concluzii
+DICE / IOU / Sensibilitate: Aceștia sunt parametrii și metricile de performanță utilizate pentru a valida modelul pe setul de test, verificând cât de bine acoperă predicția modelului fiecare organ.
+
+Biometrie fetală: O direcție clinică de viitor, în care se urmărește integrarea acestor algoritmi de segmentare într-un asistent automatizat util medicilor.
